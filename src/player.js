@@ -15,7 +15,13 @@ class Player {
 
     addRoundScore(receivedCard) {
         this._roundScore += receivedCard._value;
-    }s
+    }
+    
+    resetPlayer() {
+        this._hand = [];
+        this._roundScore = 0;
+    }
+    
 }
 
 

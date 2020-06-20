@@ -7,7 +7,7 @@ let blackjack = new Game();
 
 window.onload = function(event) {
     blackjack.init();
-    resetUI();
+    document.querySelector(".deck").style.backgroundImage = "url('./src/img/card_back.jpg')";
 };
 
 
@@ -23,39 +23,36 @@ window.onload = function(event) {
     } else if (e.target.id === "reset") {
         choice = "reset";
     }
-    blackjack.nextMove(choice);
-   
-    /*      Update UI       */
-    let activePlayer = blackjack.getActivePlayer();
-    let receivedCard = activePlayer._hand[activePlayer._hand.length-1]._id;
-    updateUI(activePlayer._id, receivedCard, activePlayer._roundScore, blackjack._deck._cards.length);
-
+    
+    let activePlayer = blackjack.nextMove(choice);
+    updateUI(choice, activePlayer);
     e.preventDefault();
   });
 
-  function resetUI() {
-    document.querySelector(".deck").style.backgroundImage = "url('./src/img/card_back.jpg')";
+  function updateUI(choice, activePlayer) {
+    if(choice === "reset") {
+      for(let i=0; i<blackjack._player.length; i++){
+        renderUI(blackjack._player[i]._id, blackjack._player[i]._roundScore, 52);
+      }
+    }
+    else {
+      let receivedCard = activePlayer._hand[activePlayer._hand.length-1]._id;
+      renderUI(activePlayer._id, activePlayer._roundScore, blackjack._deck._cards.length, receivedCard);
+    }
   }
 
-  function updateUI(activePlayerId, receivedCard, score, deckLength) {
-    let activePlayer = document.getElementById(`player${activePlayerId}`);
+  function renderUI(PlayerId, score, deckLength, receivedCard = null) {
+    let Player = document.getElementById(`player${PlayerId}`);
     // update remaining Cards in Deck
     document.querySelector(".deck p").innerHTML = `${deckLength}`;
-    // show received Card
-    activePlayer.querySelector(".cards").innerHTML += `<div class="card"></div>`;
-    activePlayer.querySelector(".cards").lastChild.style.backgroundImage = "url('./src/img/" + receivedCard + ".svg')";
+    if(receivedCard){
+      // show received Card
+      Player.querySelector(".cards").innerHTML += `<div class="card"></div>`;
+      Player.querySelector(".cards").lastChild.style.backgroundImage = "url('./src/img/" + receivedCard + ".svg')";
+    }
+    else{
+      Player.querySelector(".cards").innerHTML = "";
+    }
     // update Score
-    activePlayer.querySelector(".score span").innerHTML = `${score}`;
-    
-    
-
-  }
-
-
-  function addCard(){
-
-  }
-
-  function showRoundScore(){
-
+    Player.querySelector(".score span").innerHTML = `${score}`;
   }
