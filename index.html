@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack</title>
+    <link href="./src/styles.css" rel="stylesheet"/>
+</head>
+<body>
+    <section>
+        <h1>BlackJack</h1>
+        <p class="currentStat">let's play</p>
+        <div class="card deck"><p>52</p></div>
+    </section>
+    <section id="gameField" class="container">
+        <div id="player1" class="container">
+            <div class="row score">
+                <h2>You:<span>0</span></h2>
+            </div>
+            <div class="row cards"></div>
+        </div>
+        <div id="player2" class="container">
+            <div class="row score">
+                <h2>Dealer:<span>0</span></h2>
+            </div>
+            <div class="row cards"></div>
+        </div>
+    </section>
+    <section id="gameStat" class="container">
+        <div class="row choice">
+            <button id="hit">hit</button>
+            <button id="stand">stand</button>
+            <button id="reset">deal(reset)</button>
+        </div>
+        <!-- 
+        <div class="row generalStat">
+            <table>
+                <tr>
+                    <td>wins</td>
+                    <td>losses</td>
+                    <td>draws</td>
+                </tr>
+                <tr>
+                    <td>test</td>
+                    <td>test</td>
+                    <td>test</td>
+                </tr>
+
+            </table>
+        </div>
+        -->
+    </section>
+
+
+    
+   
+    <script type="module" src="./src/ui.js"></script>
+</body>
+</html>

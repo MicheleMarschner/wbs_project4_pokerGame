@@ -1,0 +1,58 @@
+body{
+    background-color: green;
+}
+
+section{
+    text-align: center;
+}
+
+section .container{
+    border: 1px solid black;
+    min-width: 50%;
+    padding: 0 1rem;
+}
+
+/*choose other class selector?*/
+section.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+
+
+/* */
+.card.deck{
+    width: 3.5rem;
+    height: 5rem;
+    background-size: cover; /*or cover?*/
+    transform: rotate(90deg); 
+}
+
+.card.deck p{
+    transform: rotate(-90deg); 
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+
+/* */
+
+#gameField {
+    min-height: 15rem;
+}
+
+.row.cards{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.card{
+    border: 1px solid black;
+    width: 5.5rem;
+    height: 8rem;
+    margin: 1rem;
+    background-size: cover; /*or cover?*/
+}
