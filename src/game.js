@@ -3,6 +3,7 @@ import CardDeck from './card.js';
 
 //?define somewhere else?
 const NUM_OF_PLAYER = 2;
+const START_HAND_NUM = 2;
 
 class Game {
     constructor() {
@@ -13,7 +14,7 @@ class Game {
 /*Ausgabe*/console.log("let's start");
         //?define somewhere else?
         this._deck = new CardDeck();
-        
+        this._deck.generate();
         //later in GUI
         for(let i=0; i<NUM_OF_PLAYER; i++) {
             let name = "player"+i+1;
@@ -26,20 +27,38 @@ class Game {
         this._player.push(new Player(id, name));
     }
 
+    clearRound() {
+        //AllPlayer - reset RoundScore & hand
+        this._player.forEach(player => {
+            player.resetPlayer();   
+        })
+        //CardDeck - put cards back in Deck & shuffle
+        this._deck.resetDeck();
+    }
+
     initNewRound(){
+        this._deck.shuffle();
+
         // Game - SetActivePlayer
         this._activePlayer = this._player[0];
         console.log("Game -> initNewRound -> this._activePlayer", this._activePlayer);
-        
-        //AllPlayer - reset RoundScore & hand
-        for(let i=0; i<NUM_OF_PLAYER; i++) {
-            this._player[i].resetPlayer();
+ 
+        // NEW!!
+        /*
+        for(let i=0; i<START_HAND_NUM; i++) {
+            this._player.forEach(player => {
+                    player.receiveCard(this._deck.playCard());
+                    this.changeActivePlayer();    
+            })
         }
-        
-        //CardDeck - put cards back in Deck & shuffle
-        //this._deck.resetDeck();
-        this._deck.generate();
-        this._deck.shuffle();
+        this.checkFor21();
+
+       
+        console.log("Game -> initNewRound -> _activePlayer", this._activePlayer);
+        console.log(this._player[0]._hand);
+        console.log(this._player[1]._hand);
+        */
+        // NEW FINISHED
     }
 
     getActivePlayer() {
@@ -60,6 +79,7 @@ class Game {
 
     nextMove(choice){
         if(choice === "reset"){
+            this.clearRound();
             this.initNewRound();
         }
         else{
@@ -67,6 +87,8 @@ class Game {
                 this.changeActivePlayer();   
             }
             this._activePlayer.receiveCard(this._deck.playCard());
+            if (this.checkForOver21() === true) console.log("lost");
+             
         }
         console.log('Player' + this._activePlayer._id);
         console.log(this._activePlayer._hand);
@@ -74,8 +96,13 @@ class Game {
         return this.getActivePlayer();
     }
 
-    endRound()  {
+    checkForOver21() {
+        return this._activePlayer._roundScore > 21 ? true : false;
+    }
 
+
+    endRound()  {
+       
     }
 
 

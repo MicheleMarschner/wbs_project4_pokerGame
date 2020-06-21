@@ -32,7 +32,7 @@ window.onload = function(event) {
   function updateUI(choice, activePlayer) {
     if(choice === "reset") {
       for(let i=0; i<blackjack._player.length; i++){
-        renderUI(blackjack._player[i]._id, blackjack._player[i]._roundScore, 52);
+        renderUI(blackjack._player[i]._id, blackjack._player[i]._roundScore, blackjack._deck._cards.length);
       }
     }
     else {

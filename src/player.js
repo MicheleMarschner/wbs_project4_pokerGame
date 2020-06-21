@@ -11,6 +11,7 @@ class Player {
     receiveCard(receivedCard) {
        this._hand.push(receivedCard);
        this.addRoundScore(receivedCard);
+       return this.checkFor21();
     }
 
     addRoundScore(receivedCard) {
@@ -20,6 +21,12 @@ class Player {
     resetPlayer() {
         this._hand = [];
         this._roundScore = 0;
+    }
+
+    checkFor21() {
+        if(this._roundScore > 21) {
+            return "Lost";
+        }
     }
     
 }

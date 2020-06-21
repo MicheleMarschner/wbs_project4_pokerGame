@@ -53,13 +53,12 @@ class CardDeck{
     return this._playedCards[this._playedCards.length-1];
     //?mark card as played?
   }
-  /*
+  
   resetDeck() {
-    this._cards += this._playedCards;
+    this._cards = this._cards.concat(this._playedCards);
     this._playedCards = [];
-    //this.shuffle();
   }
-  */
+  
 }
 
 
