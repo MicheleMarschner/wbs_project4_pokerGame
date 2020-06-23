@@ -1,5 +1,6 @@
 import Player from './player.js';
 import CardDeck from './card.js';
+import {updateUI, resetUI} from './ui.js';
 
 //?define somewhere else?
 const NUM_OF_PLAYER = 2;
@@ -20,7 +21,7 @@ class Game {
             let name = "player"+i+1;
             this.addPlayer(this._player.length+1, name);
         }
-        this.initNewRound();  
+        this.nextMove("reset");  
     }
 
     addPlayer(id, name){
@@ -43,22 +44,25 @@ class Game {
         this._activePlayer = this._player[0];
         console.log("Game -> initNewRound -> this._activePlayer", this._activePlayer);
  
-        // NEW!!
-        /*
         for(let i=0; i<START_HAND_NUM; i++) {
             this._player.forEach(player => {
+                if (player === this._player[this._player.length-1] && player._hand.length === 0){
+                    let receivedCard = player.receiveCard(this._deck.playCard());
+                    receivedCard._faceup = false;
+                }
+                else {
                     player.receiveCard(this._deck.playCard());
-                    this.changeActivePlayer();    
+                }
+                    updateUI(this.getActivePlayer()); 
+                    this.changeActivePlayer();         
             })
         }
-        this.checkFor21();
+        // ändern -- dürfte hier nur beim letzten checken??
+        this.checkForOver21();
 
-       
         console.log("Game -> initNewRound -> _activePlayer", this._activePlayer);
         console.log(this._player[0]._hand);
         console.log(this._player[1]._hand);
-        */
-        // NEW FINISHED
     }
 
     getActivePlayer() {
@@ -79,7 +83,16 @@ class Game {
 
     nextMove(choice){
         if(choice === "reset"){
+
+            //start last move --> show card
+            if (this._player[this._player.length-1]._hand[0]) {
+                let showCard = this._player[this._player.length-1]._hand[0]._faceup = true;
+                console.log("show Card: " + showCard);
+            }
+            //end last move --> show card
+
             this.clearRound();
+            resetUI();
             this.initNewRound();
         }
         else{
@@ -88,18 +101,30 @@ class Game {
             }
             this._activePlayer.receiveCard(this._deck.playCard());
             if (this.checkForOver21() === true) console.log("lost");
+            updateUI(this.getActivePlayer());
              
         }
         console.log('Player' + this._activePlayer._id);
         console.log(this._activePlayer._hand);
-
-        return this.getActivePlayer();
+        
+       
     }
 
     checkForOver21() {
+        /*let activePlayer = this._activePlayer;
+        
+        console.log("I am checking for over 21");
+        console.log("Game -> activePlayer", activePlayer);
+        if(activePlayer._hasAce === true && activePlayer._roundScore > 21){
+            console.log("Game -> activePlayer._hasAce", activePlayer._hasAce);
+            let Ace = activePlayer._hand.find(card => card._id.contains("A"));
+            console.log("Game -> Ace", Ace);
+            Ace._value = 1;
+            console.log("Game ->  Ace._value",  Ace._value);
+            
+        }*/
         return this._activePlayer._roundScore > 21 ? true : false;
     }
-
 
     endRound()  {
        
