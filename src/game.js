@@ -57,8 +57,6 @@ class Game {
                     this.changeActivePlayer();         
             })
         }
-        // ändern -- dürfte hier nur beim letzten checken??
-        this.checkForOver21();
 
         console.log("Game -> initNewRound -> _activePlayer", this._activePlayer);
         console.log(this._player[0]._hand);
@@ -100,7 +98,6 @@ class Game {
                 this.changeActivePlayer();   
             }
             this._activePlayer.receiveCard(this._deck.playCard());
-            if (this.checkForOver21() === true) console.log("lost");
             updateUI(this.getActivePlayer());
              
         }
@@ -109,27 +106,6 @@ class Game {
         
        
     }
-
-    checkForOver21() {
-        /*let activePlayer = this._activePlayer;
-        
-        console.log("I am checking for over 21");
-        console.log("Game -> activePlayer", activePlayer);
-        if(activePlayer._hasAce === true && activePlayer._roundScore > 21){
-            console.log("Game -> activePlayer._hasAce", activePlayer._hasAce);
-            let Ace = activePlayer._hand.find(card => card._id.contains("A"));
-            console.log("Game -> Ace", Ace);
-            Ace._value = 1;
-            console.log("Game ->  Ace._value",  Ace._value);
-            
-        }*/
-        return this._activePlayer._roundScore > 21 ? true : false;
-    }
-
-    endRound()  {
-       
-    }
-
 
   }
   

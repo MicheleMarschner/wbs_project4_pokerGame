@@ -9,9 +9,10 @@ class Player {
     }
 
     receiveCard(receivedCard) {
+        console.log("receive Card: " + receivedCard);
        this._hand.push(receivedCard);
-       this.addRoundScore(receivedCard);
-       return this.checkFor21();
+       if (this.checkForOver21(receivedCard) === true) console.log("lost");
+        return receivedCard;
     }
 
     addRoundScore(receivedCard) {
@@ -23,12 +24,50 @@ class Player {
         this._roundScore = 0;
     }
 
-    checkFor21() {
-        if(this._roundScore > 21) {
-            return "Lost";
-        }
+    checkForAce(receivedCard) {
+        console.log("check forAce " + receivedCard._id);
+        if (receivedCard._id.contains("A")) this._numOfAces += 1;
     }
-    
+
+
+    checkForOver21(receivedCard) {
+        console.log("I am checking for over 21" + receivedCard);
+        this.addRoundScore(receivedCard);
+        /*this.checkForAce(receivedCard);
+        console.log("Number of Aces: " + this._numOfAces)*/
+
+        if (this._roundScore > 21) {
+                let Ace = this._hand.find(card => card._id.contains("A"));
+                console.log("Game -> Ace", Ace);
+                Ace._value = 1;
+                console.log("Game ->  Ace._value",  Ace._value);
+        }
+
+        /*
+        if (this._roundScore > 21 && this._numOfAces) {
+            for(let i=0; i<this._numOfAces; i++){
+                let Ace = this._hand.find(card => card._id.contains("A"));
+                console.log("Game -> Ace", Ace);
+                Ace._value = 1;
+                console.log("Game ->  Ace._value",  Ace._value);
+            }
+        }*/
+        console.log(this._hand);
+        /*let activePlayer = this._activePlayer;
+        
+        console.log("I am checking for over 21");
+        console.log("Game -> activePlayer", activePlayer);
+        if(activePlayer._hasAce === true && activePlayer._roundScore > 21){
+            console.log("Game -> activePlayer._hasAce", activePlayer._hasAce);
+            let Ace = activePlayer._hand.find(card => card._id.contains("A"));
+            console.log("Game -> Ace", Ace);
+            Ace._value = 1;
+            console.log("Game ->  Ace._value",  Ace._value);
+            
+        }*/
+        return this._roundScore > 21 ? true : false;
+    }
+
 }
 
 
