@@ -24,7 +24,6 @@ class CardDeck{
   }
 
   generate(){
-
     let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
     let suits = ["c", "h", "d", "s"];
 
@@ -56,17 +55,11 @@ class CardDeck{
       this._cards[i] = this._cards[randomIdx];
       this._cards[randomIdx] = tmp;
     }
-
-/*Ausgabe*/console.log("CardDeck -> shuffle -> this._cards", this._cards);
   }
 
   playCard(){
     this._playedCards.push(this._cards.pop());
-
-/*Ausgabe*/console.log("CardDeck -> playCard -> this._playedCards", this._playedCards[this._playedCards.length-1]);
-
     return this._playedCards[this._playedCards.length-1];
-    //?mark card as played?
   }
   
   resetDeck() {
@@ -85,8 +78,6 @@ class Card {
       this._value = value;
     }
   }
-
-
 
 
 

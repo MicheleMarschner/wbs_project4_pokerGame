@@ -1,16 +1,22 @@
 class Player {
-    constructor(id, name, active = false, hand = [], gameScore = 0) {
+    constructor(id, name, hand = [], gameScore = 0) {
         this._id = id;
         this._name = name;
         this._gameScore = gameScore;
         this._roundScore = 0;
         this._hand = hand;
-        /*this._active = active;*/
     }
 
     receiveCard(receivedCard) {
+//Ausgabe
+        for (const el in receivedCard) {
+            console.log(`${el} : ${receivedCard[el]}`);
+        }
         console.log("receive Card: " + receivedCard);
+//Ausgabe
+
        this._hand.push(receivedCard);
+
        if (this.checkForOver21(receivedCard) === true) console.log("lost");
         return receivedCard;
     }
@@ -26,15 +32,20 @@ class Player {
 
     checkForAce(receivedCard) {
         console.log("check forAce " + receivedCard._id);
-        if (receivedCard._id.contains("A")) this._numOfAces += 1;
+        
+        if (String(receivedCard._id).indexOf("A")) this._numOfAces += 1;
     }
 
 
     checkForOver21(receivedCard) {
+
+        for (const el in receivedCard) {
+            console.log(`checkfor21: ${el} : ${receivedCard[el]}`);
+        }
         console.log("I am checking for over 21" + receivedCard);
         this.addRoundScore(receivedCard);
-        /*this.checkForAce(receivedCard);
-        console.log("Number of Aces: " + this._numOfAces)*/
+        this.checkForAce(receivedCard);
+        console.log("Number of Aces: " + this._numOfAces)
 
         if (this._roundScore > 21) {
                 let Ace = this._hand.find(card => card._id.contains("A"));

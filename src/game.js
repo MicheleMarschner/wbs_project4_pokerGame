@@ -2,7 +2,7 @@ import Player from './player.js';
 import CardDeck from './card.js';
 import {updateUI, resetUI} from './ui.js';
 
-//?define somewhere else?
+
 const NUM_OF_PLAYER = 2;
 const START_HAND_NUM = 2;
 
@@ -12,11 +12,10 @@ class Game {
     }
     
     init() {
-/*Ausgabe*/console.log("let's start");
-        //?define somewhere else?
+        //unfinished -- could be defined somewhere else
         this._deck = new CardDeck();
         this._deck.generate();
-        //later in GUI
+        //unfinished -- later in GUI
         for(let i=0; i<NUM_OF_PLAYER; i++) {
             let name = "player"+i+1;
             this.addPlayer(this._player.length+1, name);
@@ -42,7 +41,6 @@ class Game {
 
         // Game - SetActivePlayer
         this._activePlayer = this._player[0];
-        console.log("Game -> initNewRound -> this._activePlayer", this._activePlayer);
  
         for(let i=0; i<START_HAND_NUM; i++) {
             this._player.forEach(player => {
@@ -57,10 +55,6 @@ class Game {
                     this.changeActivePlayer();         
             })
         }
-
-        console.log("Game -> initNewRound -> _activePlayer", this._activePlayer);
-        console.log(this._player[0]._hand);
-        console.log(this._player[1]._hand);
     }
 
     getActivePlayer() {
@@ -82,10 +76,9 @@ class Game {
     nextMove(choice){
         if(choice === "reset"){
 
-            //start last move --> show card
+            //unfinished: start last move --> show card -- could be moved somewhere else
             if (this._player[this._player.length-1]._hand[0]) {
                 let showCard = this._player[this._player.length-1]._hand[0]._faceup = true;
-                console.log("show Card: " + showCard);
             }
             //end last move --> show card
 
@@ -101,10 +94,6 @@ class Game {
             updateUI(this.getActivePlayer());
              
         }
-        console.log('Player' + this._activePlayer._id);
-        console.log(this._activePlayer._hand);
-        
-       
     }
 
   }

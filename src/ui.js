@@ -21,6 +21,8 @@ document.querySelector(".choice").addEventListener("click", e => {
 });
 
 
+/*                   Collecting info for updating UI                             */
+
   function updateUI(activePlayer) {
   let receivedCard = activePlayer._hand[activePlayer._hand.length-1];
   renderUI(activePlayer._id, activePlayer._roundScore, blackjack._deck._cards.length, receivedCard);
@@ -33,6 +35,8 @@ document.querySelector(".choice").addEventListener("click", e => {
 
   }
 
+
+  /*                  Updating UI                             */
 
   function renderUI(PlayerId, score, deckLength, receivedCard = null) {
     let Player = document.getElementById(`player${PlayerId}`);
@@ -57,5 +61,7 @@ document.querySelector(".choice").addEventListener("click", e => {
     Player.querySelector(".score span").innerHTML = `${score}`;
   }
 
+
+  
 
   export {updateUI, resetUI};
