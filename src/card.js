@@ -8,15 +8,29 @@ class CardDeck{
     this._playedCards = [];
   }
 
+  assignValue(rank){
+    let value;
+    if(rank === "A") {
+      value = ACE_VALUE; 
+    }
+    else if(rank === "J" || rank === "Q" || rank === "K"){
+      value = 10; 
+    }
+    else {
+     value = parseInt(rank);
+    }
+    return value;
+
+  }
 
   generate(){
-
-    let values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+    let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
     let suits = ["c", "h", "d", "s"];
 
     for(let i=0; i<suits.length; i++) {
-      for(let j=0; j<values.length; j++){
-         this._cards.push(new Card(values[j],suits[i]));
+      for(let j=0; j<ranks.length; j++){
+        let value = this.assignValue(ranks[j]); 
+        this._cards.push(new Card(ranks[j],suits[i], value));
       }
     }
   }
@@ -41,17 +55,11 @@ class CardDeck{
       this._cards[i] = this._cards[randomIdx];
       this._cards[randomIdx] = tmp;
     }
-
-/*Ausgabe*/console.log("CardDeck -> shuffle -> this._cards", this._cards);
   }
 
   playCard(){
     this._playedCards.push(this._cards.pop());
-
-/*Ausgabe*/console.log("CardDeck -> playCard -> this._playedCards", this._playedCards);
-
     return this._playedCards[this._playedCards.length-1];
-    //?mark card as played?
   }
   
   resetDeck() {
@@ -64,36 +72,12 @@ class CardDeck{
 
 
 class Card {
-    constructor(value, suit, played = false) {
-      this._id = value + suit;
+    constructor(rank, suit, value, played = false) {
+      this._id = rank + suit;
       this._suit = suit;
-      this._value = this.assignValue(value);
-      /*this._played = played; ?vl vl nicht? */
-      /*?this._faceUp = faceUp;?*/
+      this._value = value;
     }
-
-    assignValue(value){
-
-      if(value === "A") {
-        value = ACE_VALUE; 
-      }
-      else if(value === "J" || value === "Q" || value === "K"){
-        value = 10; 
-      }
-      else {
-       value = parseInt(value);
-      }
-      return value;
-
-    }
-    
-    
-    
-
-
   }
-
-
 
 
 
